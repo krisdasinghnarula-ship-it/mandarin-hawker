@@ -179,6 +179,7 @@ if (selectedDrink === "Kopi") {
     document.getElementById("milk-question").textContent = "What kind of milk?";
 
     document.getElementById("milk-section").style.display = "block";
+    updateNutrition();
 }
 
 function chooseMilk(selectedMilk) {
@@ -201,6 +202,7 @@ document.getElementById("sugar-question").textContent =
     "Do you want sugar?";
 
 document.getElementById("sugar-section").style.display = "block";
+    updateNutrition();
 }
 function chooseSugar(hasSugar) {
     sugar = hasSugar;
@@ -213,7 +215,7 @@ function chooseSugar(hasSugar) {
     } else {
         document.getElementById("no-sugar-button").classList.add("selected");
     }
-
+updateNutrition();
     generateOrder();
 }
     function generateOrder() {
