@@ -28,9 +28,9 @@ function chooseDrink(drink) {
     document.getElementById("milk-question").textContent = "Do you want milk?";
 }
 
-function chooseMilk(hasMilk) {
+function chooseMilk(milkType) {
     document.getElementById("milk-question").textContent =
-        hasMilk ? "You chose milk" : "You chose no milk";
+        "Milk: " + milkType;
 
     document.getElementById("sugar-question").textContent =
         "Do you want sugar?";
