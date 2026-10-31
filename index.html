@@ -115,7 +115,14 @@ let sugar = false;
 };
 function chooseDrink(selectedDrink) {
     drink = selectedDrink;
+document.getElementById("coffee-button").classList.remove("selected");
+document.getElementById("tea-button").classList.remove("selected");
 
+if (selectedDrink === "Kopi") {
+    document.getElementById("coffee-button").classList.add("selected");
+} else {
+    document.getElementById("tea-button").classList.add("selected");
+}
     document.getElementById("result").textContent = "You chose " + drink;
     document.getElementById("milk-question").textContent = "What kind of milk?";
 
