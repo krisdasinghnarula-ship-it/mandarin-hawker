@@ -14,10 +14,14 @@
 <button onclick="chooseDrink('Kopi')">Coffee</button>
 <button onclick="chooseDrink('Teh')">Tea</button>
     <p id="result"></p>
+    <p id="milk-question"></p>
+    <button onclick="chooseMilk(true)">Yes, with milk</button>
+<button onclick="chooseMilk(false)">No milk</button>
 <script>
 
 function chooseDrink(drink) {
     document.getElementById("result").textContent = "You chose " + drink;
+    document.getElementById("milk-question").textContent = "Do you want milk?";
 }
 
 </script>
