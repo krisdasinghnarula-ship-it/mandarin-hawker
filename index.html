@@ -17,6 +17,7 @@
     <p id="milk-question"></p>
     <button onclick="chooseMilk(true)">Yes, with milk</button>
 <button onclick="chooseMilk(false)">No milk</button>
+    <p id="sugar-question"></p>
 <script>
 
 function chooseDrink(drink) {
@@ -27,6 +28,9 @@ function chooseDrink(drink) {
 function chooseMilk(hasMilk) {
     document.getElementById("milk-question").textContent =
         hasMilk ? "You chose milk" : "You chose no milk";
+
+    document.getElementById("sugar-question").textContent =
+        "Do you want sugar?";
 }
 
 </script>
