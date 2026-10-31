@@ -81,9 +81,14 @@
 
 </div>
 
+<div id="sugar-section" style="display: none;">
+
 <p id="sugar-question"></p>
-    <button onclick="chooseSugar(true)">Yes, sugar</button>
+
+<button onclick="chooseSugar(true)">Yes, sugar</button>
 <button onclick="chooseSugar(false)">No sugar</button>
+
+</div>
     <div id="nutrition-result"></div>
 <script>
 let drink = "";
@@ -119,8 +124,10 @@ function chooseMilk(selectedMilk) {
     document.getElementById("milk-question").textContent =
         "Milk: " + milk;
 
-    document.getElementById("sugar-question").textContent =
-        "Do you want sugar?";
+document.getElementById("sugar-question").textContent =
+    "Do you want sugar?";
+
+document.getElementById("sugar-section").style.display = "block";
 }
 function chooseSugar(hasSugar) {
     sugar = hasSugar;
