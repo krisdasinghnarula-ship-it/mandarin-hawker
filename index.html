@@ -32,9 +32,11 @@ function chooseDrink(selectedDrink) {
     document.getElementById("milk-question").textContent = "Do you want milk?";
 }
 
-function chooseMilk(milkType) {
+function chooseMilk(selectedMilk) {
+    milk = selectedMilk;
+
     document.getElementById("milk-question").textContent =
-        "Milk: " + milkType;
+        "Milk: " + milk;
 
     document.getElementById("sugar-question").textContent =
         "Do you want sugar?";
