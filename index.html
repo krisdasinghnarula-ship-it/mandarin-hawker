@@ -136,6 +136,35 @@ let sugar = false;
     "Teh O": { calories: 80, carbs: 20, protein: 0, sugar: 20 },
     "Teh O kosong": { calories: 5, carbs: 1, protein: 0, sugar: 0 }
 };
+    function updateNutrition() {
+    let order = "";
+
+    if (milk === "condensed" && sugar === true) {
+        order = drink;
+    } else if (milk === "condensed" && sugar === false) {
+        order = drink + " kosong";
+    } else if (milk === "evaporated" && sugar === true) {
+        order = drink + " C";
+    } else if (milk === "evaporated" && sugar === false) {
+        order = drink + " C kosong";
+    } else if (milk === "none" && sugar === true) {
+        order = drink + " O";
+    } else if (milk === "none" && sugar === false) {
+        order = drink + " O kosong";
+    }
+
+    if (nutrition[order]) {
+        const info = nutrition[order];
+
+        document.getElementById("nutrition-result").innerHTML = `
+            <p>Estimated nutrition</p>
+            <p>🔥 ${info.calories} kcal</p>
+            <p>🍞 ${info.carbs}g carbs</p>
+            <p>💪 ${info.protein}g protein</p>
+            <p>🍬 ${info.sugar}g sugar</p>
+        `;
+    }
+}
 function chooseDrink(selectedDrink) {
     drink = selectedDrink;
 document.getElementById("coffee-button").classList.remove("selected");
