@@ -141,20 +141,21 @@
 let drink = "";
 let milk = "";
 let sugar = false;
-    const nutrition = {
-    "Kopi": { calories: 120, carbs: 18, protein: 2, sugar: 16 },
-    "Kopi kosong": { calories: 50, carbs: 7, protein: 2, sugar: 5 },
-    "Kopi C": { calories: 120, carbs: 18, protein: 2, sugar: 16 },
-    "Kopi C kosong": { calories: 25, carbs: 4, protein: 1, sugar: 2 },
-    "Kopi O": { calories: 65, carbs: 16, protein: 0, sugar: 16 },
-    "Kopi O kosong": { calories: 5, carbs: 1, protein: 0, sugar: 0 },
+const nutrition = {
+    "Kopi": { calories: 120, carbs: 18, protein: 2, fat: 3 },
+    "Kopi kosong": { calories: 50, carbs: 7, protein: 2, fat: 1 },
+    "Kopi C": { calories: 120, carbs: 18, protein: 2, fat: 3 },
+    "Kopi C kosong": { calories: 25, carbs: 4, protein: 1, fat: 1 },
+    "Kopi O": { calories: 65, carbs: 16, protein: 0, fat: 0 },
+    "Kopi O kosong": { calories: 5, carbs: 1, protein: 0, fat: 0 },
 
-    "Teh": { calories: 130, carbs: 22, protein: 2, sugar: 20 },
-    "Teh kosong": { calories: 50, carbs: 7, protein: 2, sugar: 5 },
-    "Teh C": { calories: 130, carbs: 22, protein: 2, sugar: 20 },
-    "Teh C kosong": { calories: 25, carbs: 4, protein: 1, sugar: 2 },
-    "Teh O": { calories: 80, carbs: 20, protein: 0, sugar: 20 },
-    "Teh O kosong": { calories: 5, carbs: 1, protein: 0, sugar: 0 }
+    "Teh": { calories: 130, carbs: 22, protein: 2, fat: 3 },
+    "Teh kosong": { calories: 50, carbs: 7, protein: 2, fat: 1 },
+    "Teh C": { calories: 130, carbs: 22, protein: 2, fat: 3 },
+    "Teh C kosong": { calories: 25, carbs: 4, protein: 1, fat: 1 },
+    "Teh O": { calories: 80, carbs: 20, protein: 0, fat: 0 },
+    "Teh O kosong": { calories: 5, carbs: 1, protein: 0, fat: 0 }
+};
 };
     function updateNutrition() {
     let order = "";
