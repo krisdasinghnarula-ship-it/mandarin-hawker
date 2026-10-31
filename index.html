@@ -35,9 +35,12 @@ function chooseMilk(milkType) {
     document.getElementById("sugar-question").textContent =
         "Do you want sugar?";
 }
-    function chooseSugar(hasSugar) {
+function chooseSugar(hasSugar) {
     document.getElementById("sugar-question").textContent =
         hasSugar ? "You chose sugar" : "You chose no sugar";
+
+    document.getElementById("result").textContent =
+        "Your choices are ready!";
 }
 
 </script>
