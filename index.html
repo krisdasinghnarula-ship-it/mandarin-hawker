@@ -79,9 +79,9 @@
 
 <p id="milk-question"></p>
 
-<button onclick="chooseMilk('condensed')">Condensed milk</button>
-<button onclick="chooseMilk('evaporated')">Evaporated milk</button>
-<button onclick="chooseMilk('none')">No milk</button>
+<button id="condensed-button" onclick="chooseMilk('condensed')">Condensed milk</button>
+<button id="evaporated-button" onclick="chooseMilk('evaporated')">Evaporated milk</button>
+<button id="none-button" onclick="chooseMilk('none')">No milk</button>
 
 </div>
 
@@ -89,8 +89,8 @@
 
 <p id="sugar-question"></p>
 
-<button onclick="chooseSugar(true)">Yes, sugar</button>
-<button onclick="chooseSugar(false)">No sugar</button>
+<button id="sugar-button" onclick="chooseSugar(true)">Yes, sugar</button>
+<button id="no-sugar-button" onclick="chooseSugar(false)">No sugar</button>
 
 </div>
     <div id="nutrition-result"></div>
@@ -131,7 +131,17 @@ if (selectedDrink === "Kopi") {
 
 function chooseMilk(selectedMilk) {
     milk = selectedMilk;
+document.getElementById("condensed-button").classList.remove("selected");
+document.getElementById("evaporated-button").classList.remove("selected");
+document.getElementById("none-button").classList.remove("selected");
 
+if (selectedMilk === "condensed") {
+    document.getElementById("condensed-button").classList.add("selected");
+} else if (selectedMilk === "evaporated") {
+    document.getElementById("evaporated-button").classList.add("selected");
+} else {
+    document.getElementById("none-button").classList.add("selected");
+}
     document.getElementById("milk-question").textContent =
         "Milk: " + milk;
 
@@ -142,6 +152,16 @@ document.getElementById("sugar-section").style.display = "block";
 }
 function chooseSugar(hasSugar) {
     sugar = hasSugar;
+
+    document.getElementById("sugar-button").classList.remove("selected");
+    document.getElementById("no-sugar-button").classList.remove("selected");
+
+    if (hasSugar === true) {
+        document.getElementById("sugar-button").classList.add("selected");
+    } else {
+        document.getElementById("no-sugar-button").classList.add("selected");
+    }
+
     generateOrder();
 }
     function generateOrder() {
