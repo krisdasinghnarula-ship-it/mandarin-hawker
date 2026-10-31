@@ -13,10 +13,11 @@
 
 <button onclick="chooseDrink('Kopi')">Coffee</button>
 <button onclick="chooseDrink('Teh')">Tea</button>
+    <p id="result"></p>
 <script>
 
 function chooseDrink(drink) {
-    alert("You chose " + drink);
+    document.getElementById("result").textContent = "You chose " + drink;
 }
 
 </script>
