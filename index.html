@@ -45,12 +45,27 @@ function chooseMilk(selectedMilk) {
 }
 function chooseSugar(hasSugar) {
     sugar = hasSugar;
+    generateOrder();
+}
+    function generateOrder() {
+    let order = "";
 
-    document.getElementById("sugar-question").textContent =
-        hasSugar ? "You chose sugar" : "You chose no sugar";
+    if (milk === "condensed" && sugar === true) {
+        order = drink;
+    } else if (milk === "condensed" && sugar === false) {
+        order = drink + " kosong";
+    } else if (milk === "evaporated" && sugar === true) {
+        order = drink + " C";
+    } else if (milk === "evaporated" && sugar === false) {
+        order = drink + " C kosong";
+    } else if (milk === "none" && sugar === true) {
+        order = drink + " O";
+    } else if (milk === "none" && sugar === false) {
+        order = drink + " O kosong";
+    }
 
     document.getElementById("result").textContent =
-        "Your choices are ready!";
+        "🇸🇬 Your order: " + order;
 }
 
 </script>
