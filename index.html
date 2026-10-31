@@ -70,6 +70,7 @@
 <p id="sugar-question"></p>
     <button onclick="chooseSugar(true)">Yes, sugar</button>
 <button onclick="chooseSugar(false)">No sugar</button>
+    <div id="nutrition-result"></div>
 <script>
 let drink = "";
 let milk = "";
@@ -128,8 +129,18 @@ function chooseSugar(hasSugar) {
         order = drink + " O kosong";
     }
 
-    document.getElementById("result").textContent =
-        "🇸🇬 Your order: " + order;
+const info = nutrition[order];
+
+document.getElementById("result").textContent =
+    "🇸🇬 Your order: " + order;
+
+document.getElementById("nutrition-result").innerHTML = `
+    <p>Estimated nutrition</p>
+    <p>🔥 ${info.calories} kcal</p>
+    <p>🍞 ${info.carbs}g carbs</p>
+    <p>💪 ${info.protein}g protein</p>
+    <p>🍬 ${info.sugar}g sugar</p>
+`;
 }
 
 </script>
