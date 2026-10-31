@@ -25,7 +25,9 @@
 let drink = "";
 let milk = "";
 let sugar = false;
-function chooseDrink(drink) {
+function chooseDrink(selectedDrink) {
+    drink = selectedDrink;
+
     document.getElementById("result").textContent = "You chose " + drink;
     document.getElementById("milk-question").textContent = "Do you want milk?";
 }
