@@ -116,6 +116,7 @@
     <p id="nutrition-note">
     Nutrition values are approximate and may vary by stall.
 </p>
+    <button id="reset-button" onclick="resetOrder()">Start Over</button>
 <script>
 let drink = "";
 let milk = "";
@@ -216,7 +217,26 @@ document.getElementById("nutrition-result").innerHTML = `
     <p>🍬 ${info.sugar}g sugar</p>
 `;
 }
+function resetOrder() {
+    drink = "";
+    milk = "";
+    sugar = false;
 
+    document.getElementById("result").textContent = "";
+
+    document.getElementById("nutrition-result").innerHTML = "";
+
+    document.getElementById("milk-section").style.display = "none";
+    document.getElementById("sugar-section").style.display = "none";
+
+    document.getElementById("coffee-button").classList.remove("selected");
+    document.getElementById("tea-button").classList.remove("selected");
+    document.getElementById("condensed-button").classList.remove("selected");
+    document.getElementById("evaporated-button").classList.remove("selected");
+    document.getElementById("none-button").classList.remove("selected");
+    document.getElementById("sugar-button").classList.remove("selected");
+    document.getElementById("no-sugar-button").classList.remove("selected");
+}
 </script>
 </body>
 
