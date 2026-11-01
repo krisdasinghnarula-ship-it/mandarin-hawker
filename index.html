@@ -278,16 +278,19 @@ button {
 </div>
 
 <div id="sugar-section" style="display: none;">
+    <p id="sugar-question"></p>
 
-<p id="sugar-question"></p>
+    <button id="normal-button" onclick="chooseSugar('normal')">🍬 Normal</button>
+    <button id="siew-dai-button" onclick="chooseSugar('siew dai')">🍬 Siew Dai</button>
+    <button id="no-sugar-button" onclick="chooseSugar('kosong')">🚫 Kosong</button>
+</div>
 
-<button id="sugar-button" onclick="chooseSugar(true)">
-    🍬 Regular
-</button>
+<div id="temperature-section" style="display: none;">
+    <p id="temperature-question">Temperature</p>
 
-<button id="no-sugar-button" onclick="chooseSugar(false)">
-    🚫 Kosong
-</button>
+    <button id="hot-button" onclick="chooseTemperature('hot')">🔥 Hot</button>
+    <button id="peng-button" onclick="chooseTemperature('peng')">🧊 Peng</button>
+</div>
 
 </div>
     <div id="nutrition-result"></div>
@@ -325,7 +328,8 @@ button {
 <script>
 let drink = "";
 let milk = "";
-let sugar = false;
+let sugar = "normal";
+let temperature = "hot";
 let recommendation = {};
 const nutrition = {
     "Kopi": { calories: 120, carbs: 18, protein: 2, fat: 3 },
@@ -412,36 +416,79 @@ document.getElementById("sugar-section").style.display = "block";
 updateNutrition();
 generateOrder();
 }
-function chooseSugar(hasSugar) {
-    sugar = hasSugar;
+function chooseSugar(selectedSugar) {
 
-    document.getElementById("sugar-button").classList.remove("selected");
+    sugar = selectedSugar;
+
+    document.getElementById("normal-button").classList.remove("selected");
+    document.getElementById("siew-dai-button").classList.remove("selected");
     document.getElementById("no-sugar-button").classList.remove("selected");
 
-    if (hasSugar === true) {
-        document.getElementById("sugar-button").classList.add("selected");
+    if (sugar === "normal") {
+        document.getElementById("normal-button").classList.add("selected");
+    } else if (sugar === "siew dai") {
+        document.getElementById("siew-dai-button").classList.add("selected");
     } else {
         document.getElementById("no-sugar-button").classList.add("selected");
     }
-updateNutrition();
+function chooseTemperature(selectedTemperature) {
+
+    temperature = selectedTemperature;
+
+    document.getElementById("hot-button").classList.remove("selected");
+    document.getElementById("peng-button").classList.remove("selected");
+
+    if (temperature === "hot") {
+        document.getElementById("hot-button").classList.add("selected");
+    } else {
+        document.getElementById("peng-button").classList.add("selected");
+    }
+
     generateOrder();
 }
-    function generateOrder() {
-    let order = "";
+    document.getElementById("sugar-question").textContent =
+        "Sweetness: " + sugar;
 
-    if (milk === "condensed" && sugar === true) {
-        order = drink;
-    } else if (milk === "condensed" && sugar === false) {
-        order = drink + " kosong";
-    } else if (milk === "evaporated" && sugar === true) {
-        order = drink + " C";
-    } else if (milk === "evaporated" && sugar === false) {
-        order = drink + " C kosong";
-    } else if (milk === "none" && sugar === true) {
-        order = drink + " O";
-    } else if (milk === "none" && sugar === false) {
-        order = drink + " O kosong";
+    document.getElementById("temperature-section").style.display = "block";
+
+    updateNutrition();
+}
+function generateOrder() {
+
+    let orderName = drink;
+
+    if (milk === "condensed") {
+        orderName += "";
+    } else if (milk === "evaporated") {
+        orderName += " C";
+    } else if (milk === "none") {
+        orderName += " O";
     }
+
+    if (sugar === "siew dai") {
+        orderName += " siew dai";
+    } else if (sugar === "kosong") {
+        orderName += " kosong";
+    }
+
+    if (temperature === "peng") {
+        orderName += " peng";
+    }
+
+    document.getElementById("result").innerHTML = `
+        <div style="font-size: 14px; color: #777; margin-bottom: 8px;">
+            YOUR KOPITIAM ORDER
+        </div>
+
+        <div style="font-size: 28px; font-weight: bold;">
+            ☕ ${orderName}
+        </div>
+    `;
+
+    document.getElementById("result").style.display = "block";
+
+    updateNutrition();
+}
 
 const info = nutrition[order];
 
@@ -486,9 +533,11 @@ function orderRecommendation() {
     drink = recommendation.drinkType;
     milk = recommendation.milk;
     sugar = recommendation.sugar;
+    temperature = recommendation.temperature;
 
     document.getElementById("milk-section").style.display = "block";
     document.getElementById("sugar-section").style.display = "block";
+    document.getElementById("temperature-section").style.display = "block";
 
     document.getElementById("coffee-button").classList.remove("selected");
     document.getElementById("tea-button").classList.remove("selected");
@@ -498,6 +547,57 @@ function orderRecommendation() {
     } else {
         document.getElementById("tea-button").classList.add("selected");
     }
+
+    document.getElementById("condensed-button").classList.remove("selected");
+    document.getElementById("evaporated-button").classList.remove("selected");
+    document.getElementById("none-button").classList.remove("selected");
+
+    if (milk === "condensed") {
+        document.getElementById("condensed-button").classList.add("selected");
+    } else if (milk === "evaporated") {
+        document.getElementById("evaporated-button").classList.add("selected");
+    } else {
+        document.getElementById("none-button").classList.add("selected");
+    }
+
+    document.getElementById("normal-button").classList.remove("selected");
+    document.getElementById("siew-dai-button").classList.remove("selected");
+    document.getElementById("no-sugar-button").classList.remove("selected");
+
+    if (sugar === "normal") {
+        document.getElementById("normal-button").classList.add("selected");
+    } else if (sugar === "siew dai") {
+        document.getElementById("siew-dai-button").classList.add("selected");
+    } else {
+        document.getElementById("no-sugar-button").classList.add("selected");
+    }
+
+    document.getElementById("hot-button").classList.remove("selected");
+    document.getElementById("peng-button").classList.remove("selected");
+
+    if (temperature === "hot") {
+        document.getElementById("hot-button").classList.add("selected");
+    } else {
+        document.getElementById("peng-button").classList.add("selected");
+    }
+
+    document.getElementById("milk-question").textContent =
+        "Milk: " + milk;
+
+    document.getElementById("sugar-question").textContent =
+        "Sweetness: " + sugar;
+
+    document.getElementById("temperature-question").textContent =
+        "Temperature: " + temperature;
+
+    updateNutrition();
+    generateOrder();
+
+    document.getElementById("result").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
 
     document.getElementById("condensed-button").classList.remove("selected");
     document.getElementById("evaporated-button").classList.remove("selected");
@@ -549,6 +649,7 @@ function orderRecommendation() {
 
     return "🌡️";
 }
+```javascript
 function getRecommendation(code, temperature) {
 
     if (code >= 95) {
@@ -558,7 +659,8 @@ function getRecommendation(code, temperature) {
             food: "Kaya toast",
             drinkType: "Kopi",
             milk: "none",
-            sugar: false
+            sugar: "kosong",
+            temperature: "hot"
         };
     }
 
@@ -569,29 +671,32 @@ function getRecommendation(code, temperature) {
             food: "Curry puff",
             drinkType: "Teh",
             milk: "evaporated",
-            sugar: true
+            sugar: "normal",
+            temperature: "hot"
         };
     }
 
     if (temperature >= 30) {
         return {
-            drink: "Kopi O Kosong",
+            drink: "Kopi O Kosong Peng",
             reason: "It's hot out — keep it refreshing and low on sugar.",
             food: "Kaya toast",
             drinkType: "Kopi",
             milk: "none",
-            sugar: false
+            sugar: "kosong",
+            temperature: "peng"
         };
     }
 
     if (code === 0 || code === 1) {
         return {
-            drink: "Teh C",
-            reason: "Clear skies call for a classic Singapore kopi break.",
+            drink: "Teh C Peng",
+            reason: "Clear skies call for a refreshing Singapore kopi break.",
             food: "Kaya toast",
             drinkType: "Teh",
             milk: "evaporated",
-            sugar: true
+            sugar: "normal",
+            temperature: "peng"
         };
     }
 
@@ -601,7 +706,8 @@ function getRecommendation(code, temperature) {
         food: "Curry puff",
         drinkType: "Kopi",
         milk: "evaporated",
-        sugar: true
+        sugar: "normal",
+        temperature: "hot"
     };
 }
     fetch("https://api.open-meteo.com/v1/forecast?latitude=1.3521&longitude=103.8198&current=temperature_2m,apparent_temperature,weather_code&timezone=Asia/Singapore")
