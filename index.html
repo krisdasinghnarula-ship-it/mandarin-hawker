@@ -63,6 +63,7 @@ h2 {
     color: white;
 }
 #result {
+    display: none;
     background: white;
     border-radius: 20px;
     padding: 25px 20px;
@@ -289,6 +290,8 @@ const info = nutrition[order];
 document.getElementById("result").textContent =
     "🇸🇬 Your order: " + order;
 
+document.getElementById("result").style.display = "block";
+
 document.getElementById("nutrition-result").innerHTML = `
     <p>Estimated nutrition</p>
     <p>🔥 ${info.calories} kcal</p>
@@ -303,7 +306,7 @@ function resetOrder() {
     sugar = false;
 
     document.getElementById("result").textContent = "";
-
+document.getElementById("result").style.display = "none";
     document.getElementById("nutrition-result").innerHTML = "";
 
     document.getElementById("milk-section").style.display = "none";
