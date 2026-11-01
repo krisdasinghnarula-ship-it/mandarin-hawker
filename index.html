@@ -126,9 +126,17 @@ h2 {
 
 <p id="milk-question"></p>
 
-<button id="condensed-button" onclick="chooseMilk('condensed')">Condensed milk</button>
-<button id="evaporated-button" onclick="chooseMilk('evaporated')">Evaporated milk</button>
-<button id="none-button" onclick="chooseMilk('none')">No milk</button>
+<button id="condensed-button" onclick="chooseMilk('condensed')">
+    🥛 Condensed
+</button>
+
+<button id="evaporated-button" onclick="chooseMilk('evaporated')">
+    🥛 Evaporated
+</button>
+
+<button id="none-button" onclick="chooseMilk('none')">
+    ⚪ No milk
+</button>
 
 </div>
 
@@ -224,7 +232,7 @@ if (selectedDrink === "Kopi") {
     document.getElementById("tea-button").classList.add("selected");
 }
     document.getElementById("result").textContent = "You chose " + drink;
-    document.getElementById("milk-question").textContent = "What kind of milk?";
+   document.getElementById("milk-question").textContent = "How do you take your kopi?";
 
     document.getElementById("milk-section").style.display = "block";
     updateNutrition();
