@@ -3,7 +3,8 @@
 
 <head>
     <title>Singapore Drink Order Generator</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,753 +13,934 @@
             padding: 40px 20px;
         }
 
-h1 {
-    color: #b23a2b;
-    font-size: 32px;
-}
+        h1 {
+            color: #b23a2b;
+            font-size: 32px;
+        }
 
-.brand {
-    margin-bottom: 30px;
-}
+        .brand {
+            margin-bottom: 30px;
+        }
 
-.brand-flag {
-    font-size: 42px;
-    margin-bottom: 5px;
-}
+        .brand-flag {
+            font-size: 42px;
+            margin-bottom: 5px;
+        }
 
-.brand h1 {
-    margin: 0;
-    font-size: 42px;
-    letter-spacing: 4px;
-    color: #b23a2b;
-}
+        .brand h1 {
+            margin: 0;
+            font-size: 42px;
+            letter-spacing: 4px;
+            color: #b23a2b;
+        }
 
-.brand p {
-    margin: 8px 0 0;
-    color: #6b4f3a;
-    font-size: 16px;
-    letter-spacing: 1px;
-}
+        .brand p {
+            margin: 8px 0 0;
+            color: #6b4f3a;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
 
-h2 {
-    color: #333;
-}
+        h2 {
+            color: #333;
+        }
 
-button {
-    background: white;
-    border: 2px solid #b23a2b;
-    border-radius: 12px;
-    padding: 12px 20px;
-    margin: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    min-height: 48px;
-}
+        button {
+            background: white;
+            border: 2px solid #b23a2b;
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            min-height: 48px;
+        }
 
         button:hover {
             background: #b23a2b;
             color: white;
         }
+
         button.selected {
-    background: #b23a2b;
-    color: white;
-}
-#result {
-    display: none;
-    background: #fffdf7;
-    border-radius: 4px;
-    padding: 28px 20px;
-    margin: 25px auto 15px;
-    max-width: 360px;
-    font-size: 26px;
-    font-weight: bold;
-    color: #33251f;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    border-top: 5px solid #b23a2b;
-    position: relative;
-}
+            background: #b23a2b;
+            color: white;
+        }
+
+        #result {
+            display: none;
+            background: #fffdf7;
+            border-radius: 4px;
+            padding: 28px 20px;
+            margin: 25px auto 15px;
+            max-width: 360px;
+            font-size: 26px;
+            font-weight: bold;
+            color: #33251f;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            border-top: 5px solid #b23a2b;
+            position: relative;
+        }
+
         #weather {
-    background: #fffaf2;
-    border-radius: 20px;
-    padding: 20px;
-    margin: 15px auto 25px;
-    max-width: 400px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    color: #33251f;
-    font-size: 18px;
-    font-weight: bold;
-}
+            background: #fffaf2;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 15px auto 25px;
+            max-width: 400px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            color: #33251f;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
         #recommendation {
-    background: #fffdf7;
-    border-radius: 20px;
-    padding: 20px;
-    margin: 15px auto 25px;
-    max-width: 400px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
+            background: #fffdf7;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 15px auto 25px;
+            max-width: 400px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
 
-#recommendation .recommendation-title {
-    color: #b23a2b;
-    font-size: 15px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    margin-bottom: 12px;
-}
+        #recommendation .recommendation-title {
+            color: #b23a2b;
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
 
-#recommendation .drink {
-    font-size: 22px;
-    font-weight: bold;
-    color: #33251f;
-    margin-bottom: 8px;
-}
+        #recommendation .drink {
+            font-size: 22px;
+            font-weight: bold;
+            color: #33251f;
+            margin-bottom: 8px;
+        }
 
-#recommendation .reason {
-    font-size: 14px;
-    color: #777;
-    margin-bottom: 18px;
-}
+        #recommendation .reason {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 18px;
+        }
 
-#recommendation .food {
-    font-size: 16px;
-    color: #6b4f3a;
-    font-weight: bold;
-}
-#result.show-receipt {
-    animation: receiptAppear 0.45s ease-out;
-}
+        #recommendation .food {
+            font-size: 16px;
+            color: #6b4f3a;
+            font-weight: bold;
+        }
 
-@keyframes receiptAppear {
-    0% {
-        opacity: 0;
-        transform: translateY(15px);
-    }
+        #result.show-receipt {
+            animation: receiptAppear 0.45s ease-out;
+        }
 
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-#nutrition-result {
-    background: #fffaf2;
-    border-radius: 20px;
-    padding: 20px;
-    margin: 15px auto;
-    max-width: 400px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
+        @keyframes receiptAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(15px);
+            }
 
-#nutrition-result p {
-    margin: 10px 0;
-    font-size: 16px;
-}
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-#nutrition-result p:first-child {
-    font-size: 18px;
-    font-weight: bold;
-    color: #b23a2b;
-    margin-bottom: 15px;
-}
+        #nutrition-result {
+            background: #fffaf2;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 15px auto;
+            max-width: 400px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
 
-#nutrition-result p {
-    margin: 8px 0;
-    font-size: 16px;
-}   
+        #nutrition-result p {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+
+        #nutrition-result p:first-child {
+            font-size: 18px;
+            font-weight: bold;
+            color: #b23a2b;
+            margin-bottom: 15px;
+        }
+
         #nutrition-note {
-    font-size: 12px;
-    color: #777;
-    max-width: 400px;
-    margin: 10px auto;
-}
+            font-size: 12px;
+            color: #777;
+            max-width: 400px;
+            margin: 10px auto;
+        }
+
         /* Mobile optimization */
 
-@media (max-width: 600px) {
+        @media (max-width: 600px) {
 
-    body {
-        padding: 25px 15px;
-    }
+            body {
+                padding: 25px 15px;
+            }
 
-    .brand {
-        margin-bottom: 25px;
-    }
+            .brand {
+                margin-bottom: 25px;
+            }
 
-    .brand-flag {
-        font-size: 36px;
-    }
+            .brand-flag {
+                font-size: 36px;
+            }
 
-    .brand h1 {
-        font-size: 34px;
-        letter-spacing: 3px;
-    }
+            .brand h1 {
+                font-size: 34px;
+                letter-spacing: 3px;
+            }
 
-    .brand p {
-        font-size: 14px;
-    }
+            .brand p {
+                font-size: 14px;
+            }
 
-    h2 {
-        font-size: 24px;
-        margin-top: 28px;
-    }
+            h2 {
+                font-size: 24px;
+                margin-top: 28px;
+            }
 
-    button {
-        padding: 14px 18px;
-        margin: 5px 2px;
-        font-size: 16px;
-    }
+            button {
+                padding: 14px 18px;
+                margin: 5px 2px;
+                font-size: 16px;
+            }
 
-    #result {
-        width: calc(100% - 20px);
-        box-sizing: border-box;
-        padding: 25px 15px;
-        font-size: 24px;
-    }
+            #result {
+                width: calc(100% - 20px);
+                box-sizing: border-box;
+                padding: 25px 15px;
+                font-size: 24px;
+            }
 
-    #nutrition-result,
-    #weather,
-    #recommendation {
-        width: calc(100% - 10px);
-        box-sizing: border-box;
-    }
+            #nutrition-result,
+            #weather,
+            #recommendation {
+                width: calc(100% - 10px);
+                box-sizing: border-box;
+            }
 
-    #nutrition-result p {
-        font-size: 15px;
-    }
+            #nutrition-result p {
+                font-size: 15px;
+            }
 
-    #weather {
-        padding: 18px;
-    }
+            #weather {
+                padding: 18px;
+            }
 
-    #recommendation {
-        padding: 18px;
-    }
+            #recommendation {
+                padding: 18px;
+            }
 
-    #recommendation .drink {
-        font-size: 20px;
-    }
+            #recommendation .drink {
+                font-size: 20px;
+            }
 
-    #recommendation .reason {
-        line-height: 1.5;
-    }
+            #recommendation .reason {
+                line-height: 1.5;
+            }
 
-    #reset-button {
-        margin-top: 15px;
-    }
-}
+            #reset-button {
+                margin-top: 15px;
+            }
+        }
     </style>
 </head>
 
 <body>
 
     <div class="brand">
-    <div class="brand-flag">🇸🇬</div>
-    <h1>KOPITIAM</h1>
-    <p>Singapore Drink Order Generator</p>
-</div>
+        <div class="brand-flag">🇸🇬</div>
+        <h1>KOPITIAM</h1>
+        <p>Singapore Drink Order Generator</p>
+    </div>
 
     <h2>What are you trying to order?</h2>
 
-<button id="coffee-button" onclick="chooseDrink('Kopi')">Coffee</button>
-<button id="tea-button" onclick="chooseDrink('Teh')">Tea</button>
+    <button id="coffee-button" onclick="chooseDrink('Kopi')">Coffee</button>
+    <button id="tea-button" onclick="chooseDrink('Teh')">Tea</button>
+
     <p id="result"></p>
-<div id="milk-section" style="display: none;">
 
-<p id="milk-question"></p>
+    <div id="milk-section" style="display: none;">
 
-<button id="condensed-button" onclick="chooseMilk('condensed')">
-    🥛 Condensed
-</button>
+        <p id="milk-question"></p>
 
-<button id="evaporated-button" onclick="chooseMilk('evaporated')">
-    🥛 Evaporated
-</button>
+        <button id="condensed-button" onclick="chooseMilk('condensed')">
+            🥛 Condensed
+        </button>
 
-<button id="none-button" onclick="chooseMilk('none')">
-    ⚪ No milk
-</button>
+        <button id="evaporated-button" onclick="chooseMilk('evaporated')">
+            🥛 Evaporated
+        </button>
 
-</div>
+        <button id="none-button" onclick="chooseMilk('none')">
+            ⚪ No milk
+        </button>
 
-<div id="sugar-section" style="display: none;">
-    <p id="sugar-question"></p>
+    </div>
 
-    <button id="normal-button" onclick="chooseSugar('normal')">🍬 Normal</button>
-    <button id="siew-dai-button" onclick="chooseSugar('siew dai')">🍬 Siew Dai</button>
-    <button id="no-sugar-button" onclick="chooseSugar('kosong')">🚫 Kosong</button>
-</div>
+    <div id="sugar-section" style="display: none;">
 
-<div id="temperature-section" style="display: none;">
-    <p id="temperature-question">Temperature</p>
+        <p id="sugar-question">Sweetness</p>
 
-    <button id="hot-button" onclick="chooseTemperature('hot')">🔥 Hot</button>
-    <button id="peng-button" onclick="chooseTemperature('peng')">🧊 Peng</button>
-</div>
+        <button id="normal-button" onclick="chooseSugar('normal')">
+            🍬 Normal
+        </button>
 
-</div>
+        <button id="siew-dai-button" onclick="chooseSugar('siew dai')">
+            🍬 Siew Dai
+        </button>
+
+        <button id="no-sugar-button" onclick="chooseSugar('kosong')">
+            🚫 Kosong
+        </button>
+
+    </div>
+
+    <div id="temperature-section" style="display: none;">
+
+        <p id="temperature-question">Temperature</p>
+
+        <button id="hot-button" onclick="chooseTemperature('hot')">
+            🔥 Hot
+        </button>
+
+        <button id="peng-button" onclick="chooseTemperature('peng')">
+            🧊 Peng
+        </button>
+
+    </div>
+
     <div id="nutrition-result"></div>
+
     <p id="nutrition-note">
-    Nutrition values are approximate and may vary by stall.
-</p>
+        Nutrition values are approximate and may vary by stall.
+    </p>
+
     <button id="reset-button" onclick="resetOrder()">Start Over</button>
+
     <h2>🇸🇬 Singapore Weather</h2>
 
-
-<div id="weather">
-    Loading Singapore weather...
-</div>
-
-<div id="recommendation"></div>
-
-<p>Looking for somewhere to order your Kopi or Teh?</p>
-
-<a
-    href="https://www.google.com/maps/search/hawker+centres+Singapore"
-    target="_blank"
-    style="
-        display: inline-block;
-        background: #b23a2b;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 12px;
-        text-decoration: none;
-        font-size: 16px;
-        margin-top: 5px;
-    "
->
-    🗺️ Search Hawker Centres
-</a>
-<script>
-let drink = "";
-let milk = "";
-let sugar = "normal";
-let temperature = "hot";
-let recommendation = {};
-const nutrition = {
-    "Kopi": { calories: 120, carbs: 18, protein: 2, fat: 3 },
-    "Kopi kosong": { calories: 50, carbs: 7, protein: 2, fat: 1 },
-    "Kopi C": { calories: 120, carbs: 18, protein: 2, fat: 3 },
-    "Kopi C kosong": { calories: 25, carbs: 4, protein: 1, fat: 1 },
-    "Kopi O": { calories: 65, carbs: 16, protein: 0, fat: 0 },
-    "Kopi O kosong": { calories: 5, carbs: 1, protein: 0, fat: 0 },
-
-    "Teh": { calories: 130, carbs: 22, protein: 2, fat: 3 },
-    "Teh kosong": { calories: 50, carbs: 7, protein: 2, fat: 1 },
-    "Teh C": { calories: 130, carbs: 22, protein: 2, fat: 3 },
-    "Teh C kosong": { calories: 25, carbs: 4, protein: 1, fat: 1 },
-    "Teh O": { calories: 80, carbs: 20, protein: 0, fat: 0 },
-    "Teh O kosong": { calories: 5, carbs: 1, protein: 0, fat: 0 }
-};
-    function updateNutrition() {
-    let order = "";
-
-    if (milk === "condensed" && sugar === true) {
-        order = drink;
-    } else if (milk === "condensed" && sugar === false) {
-        order = drink + " kosong";
-    } else if (milk === "evaporated" && sugar === true) {
-        order = drink + " C";
-    } else if (milk === "evaporated" && sugar === false) {
-        order = drink + " C kosong";
-    } else if (milk === "none" && sugar === true) {
-        order = drink + " O";
-    } else if (milk === "none" && sugar === false) {
-        order = drink + " O kosong";
-    }
-
-    if (nutrition[order]) {
-        const info = nutrition[order];
-
-        document.getElementById("nutrition-result").innerHTML = `
-            <p>Estimated nutrition</p>
-            <p>🔥 ${info.calories} kcal</p>
-            <p>🍞 ${info.carbs}g carbs</p>
-            <p>💪 ${info.protein}g protein</p>
-            <p>🥑 ${info.fat}g fat</p>
-        `;
-    }
-}
-function chooseDrink(selectedDrink) {
-    drink = selectedDrink;
-document.getElementById("coffee-button").classList.remove("selected");
-document.getElementById("tea-button").classList.remove("selected");
-
-if (selectedDrink === "Kopi") {
-    document.getElementById("coffee-button").classList.add("selected");
-} else {
-    document.getElementById("tea-button").classList.add("selected");
-}
-    document.getElementById("result").textContent = "You chose " + drink;
-   document.getElementById("milk-question").textContent = "How do you take your kopi?";
-
-    document.getElementById("milk-section").style.display = "block";
-    updateNutrition();
-}
-
-function chooseMilk(selectedMilk) {
-    milk = selectedMilk;
-document.getElementById("condensed-button").classList.remove("selected");
-document.getElementById("evaporated-button").classList.remove("selected");
-document.getElementById("none-button").classList.remove("selected");
-
-if (selectedMilk === "condensed") {
-    document.getElementById("condensed-button").classList.add("selected");
-} else if (selectedMilk === "evaporated") {
-    document.getElementById("evaporated-button").classList.add("selected");
-} else {
-    document.getElementById("none-button").classList.add("selected");
-}
-    document.getElementById("milk-question").textContent =
-        "Milk: " + milk;
-
-document.getElementById("sugar-question").textContent =
-    "How sweet?";
-
-document.getElementById("sugar-section").style.display = "block";
-    
-updateNutrition();
-generateOrder();
-}
-function chooseSugar(selectedSugar) {
-
-    sugar = selectedSugar;
-
-    document.getElementById("normal-button").classList.remove("selected");
-    document.getElementById("siew-dai-button").classList.remove("selected");
-    document.getElementById("no-sugar-button").classList.remove("selected");
-
-    if (sugar === "normal") {
-        document.getElementById("normal-button").classList.add("selected");
-    } else if (sugar === "siew dai") {
-        document.getElementById("siew-dai-button").classList.add("selected");
-    } else {
-        document.getElementById("no-sugar-button").classList.add("selected");
-    }
-function chooseTemperature(selectedTemperature) {
-
-    temperature = selectedTemperature;
-
-    document.getElementById("hot-button").classList.remove("selected");
-    document.getElementById("peng-button").classList.remove("selected");
-
-    if (temperature === "hot") {
-        document.getElementById("hot-button").classList.add("selected");
-    } else {
-        document.getElementById("peng-button").classList.add("selected");
-    }
-
-    generateOrder();
-}
-    document.getElementById("sugar-question").textContent =
-        "Sweetness: " + sugar;
-
-    document.getElementById("temperature-section").style.display = "block";
-
-    updateNutrition();
-}
-function generateOrder() {
-
-    let orderName = drink;
-
-    if (milk === "condensed") {
-        orderName += "";
-    } else if (milk === "evaporated") {
-        orderName += " C";
-    } else if (milk === "none") {
-        orderName += " O";
-    }
-
-    if (sugar === "siew dai") {
-        orderName += " siew dai";
-    } else if (sugar === "kosong") {
-        orderName += " kosong";
-    }
-
-    if (temperature === "peng") {
-        orderName += " peng";
-    }
-
-    document.getElementById("result").innerHTML = `
-        <div style="font-size: 14px; color: #777; margin-bottom: 8px;">
-            YOUR KOPITIAM ORDER
-        </div>
-
-        <div style="font-size: 28px; font-weight: bold;">
-            ☕ ${orderName}
-        </div>
-    `;
-
-    document.getElementById("result").style.display = "block";
-
-    updateNutrition();
-}
-
-const info = nutrition[order];
-
-document.getElementById("result").innerHTML = `
-    <div style="font-size: 18px; color: #b23a2b; letter-spacing: 2px;">
-        🇸🇬 KOPITIAM
+    <div id="weather">
+        Loading Singapore weather...
     </div>
 
-    <div style="font-size: 14px; margin: 15px 0 8px; color: #777;">
-        YOUR ORDER
-    </div>
+    <div id="recommendation"></div>
 
-    <div style="font-size: 28px; margin-bottom: 18px;">
-        ${order}
-    </div>
+    <p>Looking for somewhere to order your Kopi or Teh?</p>
 
-    <div style="font-size: 14px; color: #555; font-weight: normal;">
-        ─────────────────
-    </div>
-`;
+    <a
+        href="https://www.google.com/maps/search/hawker+centres+Singapore"
+        target="_blank"
+        style="
+            display: inline-block;
+            background: #b23a2b;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 5px;
+        "
+    >
+        🗺️ Search Hawker Centres
+    </a>
 
-const result = document.getElementById("result");
+    <script>
 
-result.style.display = "block";
+        let drink = "";
+        let milk = "";
+        let sugar = "normal";
+        let temperature = "hot";
+        let recommendation = {};
 
-result.classList.remove("show-receipt");
+        const nutrition = {
 
-void result.offsetWidth;
+            "Kopi": {
+                calories: 120,
+                carbs: 18,
+                protein: 2,
+                fat: 3
+            },
 
-result.classList.add("show-receipt");
+            "Kopi siew dai": {
+                calories: 85,
+                carbs: 13,
+                protein: 2,
+                fat: 3
+            },
 
-document.getElementById("nutrition-result").innerHTML = `
-    <p>Estimated nutrition</p>
-    <p>🔥 ${info.calories} kcal</p>
-    <p>🍞 ${info.carbs}g carbs</p>
-    <p>💪 ${info.protein}g protein</p>
-   <p>🥑 ${info.fat}g fat</p>
-`;
-}
-function orderRecommendation() {
+            "Kopi kosong": {
+                calories: 50,
+                carbs: 7,
+                protein: 2,
+                fat: 1
+            },
 
-    drink = recommendation.drinkType;
-    milk = recommendation.milk;
-    sugar = recommendation.sugar;
-    temperature = recommendation.temperature;
+            "Kopi C": {
+                calories: 120,
+                carbs: 18,
+                protein: 2,
+                fat: 3
+            },
 
-    document.getElementById("milk-section").style.display = "block";
-    document.getElementById("sugar-section").style.display = "block";
-    document.getElementById("temperature-section").style.display = "block";
+            "Kopi C siew dai": {
+                calories: 75,
+                carbs: 12,
+                protein: 2,
+                fat: 3
+            },
 
-    document.getElementById("coffee-button").classList.remove("selected");
-    document.getElementById("tea-button").classList.remove("selected");
+            "Kopi C kosong": {
+                calories: 25,
+                carbs: 4,
+                protein: 1,
+                fat: 1
+            },
 
-    if (drink === "Kopi") {
-        document.getElementById("coffee-button").classList.add("selected");
-    } else {
-        document.getElementById("tea-button").classList.add("selected");
-    }
+            "Kopi O": {
+                calories: 65,
+                carbs: 16,
+                protein: 0,
+                fat: 0
+            },
 
-    document.getElementById("condensed-button").classList.remove("selected");
-    document.getElementById("evaporated-button").classList.remove("selected");
-    document.getElementById("none-button").classList.remove("selected");
+            "Kopi O siew dai": {
+                calories: 35,
+                carbs: 9,
+                protein: 0,
+                fat: 0
+            },
 
-    if (milk === "condensed") {
-        document.getElementById("condensed-button").classList.add("selected");
-    } else if (milk === "evaporated") {
-        document.getElementById("evaporated-button").classList.add("selected");
-    } else {
-        document.getElementById("none-button").classList.add("selected");
-    }
+            "Kopi O kosong": {
+                calories: 5,
+                carbs: 1,
+                protein: 0,
+                fat: 0
+            },
 
-    document.getElementById("normal-button").classList.remove("selected");
-    document.getElementById("siew-dai-button").classList.remove("selected");
-    document.getElementById("no-sugar-button").classList.remove("selected");
+            "Teh": {
+                calories: 130,
+                carbs: 22,
+                protein: 2,
+                fat: 3
+            },
 
-    if (sugar === "normal") {
-        document.getElementById("normal-button").classList.add("selected");
-    } else if (sugar === "siew dai") {
-        document.getElementById("siew-dai-button").classList.add("selected");
-    } else {
-        document.getElementById("no-sugar-button").classList.add("selected");
-    }
+            "Teh siew dai": {
+                calories: 90,
+                carbs: 15,
+                protein: 2,
+                fat: 3
+            },
 
-    document.getElementById("hot-button").classList.remove("selected");
-    document.getElementById("peng-button").classList.remove("selected");
+            "Teh kosong": {
+                calories: 50,
+                carbs: 7,
+                protein: 2,
+                fat: 1
+            },
 
-    if (temperature === "hot") {
-        document.getElementById("hot-button").classList.add("selected");
-    } else {
-        document.getElementById("peng-button").classList.add("selected");
-    }
+            "Teh C": {
+                calories: 130,
+                carbs: 22,
+                protein: 2,
+                fat: 3
+            },
 
-    document.getElementById("milk-question").textContent =
-        "Milk: " + milk;
+            "Teh C siew dai": {
+                calories: 80,
+                carbs: 13,
+                protein: 2,
+                fat: 3
+            },
 
-    document.getElementById("sugar-question").textContent =
-        "Sweetness: " + sugar;
+            "Teh C kosong": {
+                calories: 25,
+                carbs: 4,
+                protein: 1,
+                fat: 1
+            },
 
-    document.getElementById("temperature-question").textContent =
-        "Temperature: " + temperature;
+            "Teh O": {
+                calories: 80,
+                carbs: 20,
+                protein: 0,
+                fat: 0
+            },
 
-    updateNutrition();
-    generateOrder();
+            "Teh O siew dai": {
+                calories: 40,
+                carbs: 10,
+                protein: 0,
+                fat: 0
+            },
 
-    document.getElementById("result").scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-    });
-}
-
-    document.getElementById("condensed-button").classList.remove("selected");
-    document.getElementById("evaporated-button").classList.remove("selected");
-    document.getElementById("none-button").classList.remove("selected");
-
-    if (milk === "condensed") {
-        document.getElementById("condensed-button").classList.add("selected");
-    } else if (milk === "evaporated") {
-        document.getElementById("evaporated-button").classList.add("selected");
-    } else {
-        document.getElementById("none-button").classList.add("selected");
-    }
-
-    document.getElementById("sugar-button").classList.remove("selected");
-    document.getElementById("no-sugar-button").classList.remove("selected");
-
-    if (sugar === true) {
-        document.getElementById("sugar-button").classList.add("selected");
-    } else {
-        document.getElementById("no-sugar-button").classList.add("selected");
-    }
-
-    document.getElementById("milk-question").textContent =
-        "Milk: " + milk;
-
-    document.getElementById("sugar-question").textContent =
-        "How sweet?";
-
-    updateNutrition();
-    generateOrder();
-
-    document.getElementById("result").scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-    });
-}
-    function getWeatherIcon(code) {
-    if (code === 0) return "☀️";
-    if (code === 1) return "🌤️";
-    if (code === 2) return "⛅";
-    if (code === 3) return "☁️";
-    if (code === 45 || code === 48) return "🌫️";
-    if (code >= 51 && code <= 57) return "🌦️";
-    if (code >= 61 && code <= 67) return "🌧️";
-    if (code >= 71 && code <= 77) return "❄️";
-    if (code >= 80 && code <= 82) return "🌦️";
-    if (code >= 85 && code <= 86) return "🌨️";
-    if (code >= 95) return "⛈️";
-
-    return "🌡️";
-}
-```javascript
-function getRecommendation(code, temperature) {
-
-    if (code >= 95) {
-        return {
-            drink: "Kopi O Kosong",
-            reason: "Stormy weather calls for a classic hot kopi.",
-            food: "Kaya toast",
-            drinkType: "Kopi",
-            milk: "none",
-            sugar: "kosong",
-            temperature: "hot"
+            "Teh O kosong": {
+                calories: 5,
+                carbs: 1,
+                protein: 0,
+                fat: 0
+            }
         };
-    }
 
-    if (code >= 61 && code <= 82) {
-        return {
-            drink: "Teh C",
-            reason: "A rainy Singapore day deserves a comforting cup of Teh C.",
-            food: "Curry puff",
-            drinkType: "Teh",
-            milk: "evaporated",
-            sugar: "normal",
-            temperature: "hot"
-        };
-    }
 
-    if (temperature >= 30) {
-        return {
-            drink: "Kopi O Kosong Peng",
-            reason: "It's hot out — keep it refreshing and low on sugar.",
-            food: "Kaya toast",
-            drinkType: "Kopi",
-            milk: "none",
-            sugar: "kosong",
-            temperature: "peng"
-        };
-    }
+        function getOrderName() {
 
-    if (code === 0 || code === 1) {
-        return {
-            drink: "Teh C Peng",
-            reason: "Clear skies call for a refreshing Singapore kopi break.",
-            food: "Kaya toast",
-            drinkType: "Teh",
-            milk: "evaporated",
-            sugar: "normal",
-            temperature: "peng"
-        };
-    }
+            let order = drink;
 
-    return {
-        drink: "Kopi C",
-        reason: "A balanced choice for a cloudy Singapore day.",
-        food: "Curry puff",
-        drinkType: "Kopi",
-        milk: "evaporated",
-        sugar: "normal",
-        temperature: "hot"
-    };
-}
-    fetch("https://api.open-meteo.com/v1/forecast?latitude=1.3521&longitude=103.8198&current=temperature_2m,apparent_temperature,weather_code&timezone=Asia/Singapore")
-    .then(response => response.json())
-    .then(data => {
-const temperature = data.current.temperature_2m;
-const feelsLike = data.current.apparent_temperature;
-const weatherCode = data.current.weather_code;
-const weatherIcon = getWeatherIcon(weatherCode);
-recommendation = getRecommendation(weatherCode, temperature);
-document.getElementById("weather").innerHTML = `
-    <div style="font-size: 42px; margin-bottom: 8px;">
-        ${weatherIcon}
-    </div>
+            if (milk === "evaporated") {
+                order += " C";
+            } else if (milk === "none") {
+                order += " O";
+            }
 
-    <div style="font-size: 28px; margin-bottom: 8px;">
-        ${temperature}°C
-    </div>
+            if (sugar === "siew dai") {
+                order += " siew dai";
+            } else if (sugar === "kosong") {
+                order += " kosong";
+            }
 
-    <div style="font-size: 15px; font-weight: normal; color: #777;">
-        Feels like ${feelsLike}°C
-    </div>
-`;
-document.getElementById("recommendation").innerHTML = `
-    <div class="recommendation-title">
-        TODAY'S KOPITIAM PICK
-    </div>
+            if (temperature === "peng") {
+                order += " peng";
+            }
 
-    <div class="drink">
-        ☕ ${recommendation.drink}
-    </div>
+            return order;
+        }
 
-    <div class="reason">
-        ${recommendation.reason}
-    </div>
 
-    <div class="food">
-        🍽️ Pair it with: ${recommendation.food}
-    </div>
+        function updateNutrition() {
 
-    <button onclick="orderRecommendation()" style="
-        margin-top: 15px;
-        background: #b23a2b;
-        color: white;
-        border-color: #b23a2b;
-    ">
-        ☕ Order this
-    </button>
-`;
-    });
-</script>
+            const order = getOrderName().replace(" peng", "");
+
+            if (nutrition[order]) {
+
+                const info = nutrition[order];
+
+                document.getElementById("nutrition-result").innerHTML = `
+                    <p>Estimated nutrition</p>
+                    <p>🔥 ${info.calories} kcal</p>
+                    <p>🍞 ${info.carbs}g carbs</p>
+                    <p>💪 ${info.protein}g protein</p>
+                    <p>🥑 ${info.fat}g fat</p>
+                `;
+            }
+        }
+
+
+        function chooseDrink(selectedDrink) {
+
+            drink = selectedDrink;
+
+            document.getElementById("coffee-button").classList.remove("selected");
+            document.getElementById("tea-button").classList.remove("selected");
+
+            if (selectedDrink === "Kopi") {
+                document.getElementById("coffee-button").classList.add("selected");
+            } else {
+                document.getElementById("tea-button").classList.add("selected");
+            }
+
+            document.getElementById("result").style.display = "none";
+
+            document.getElementById("milk-question").textContent =
+                "How do you take your kopi?";
+
+            document.getElementById("milk-section").style.display = "block";
+
+            document.getElementById("sugar-section").style.display = "none";
+            document.getElementById("temperature-section").style.display = "none";
+
+            updateNutrition();
+        }
+
+
+        function chooseMilk(selectedMilk) {
+
+            milk = selectedMilk;
+
+            document.getElementById("condensed-button").classList.remove("selected");
+            document.getElementById("evaporated-button").classList.remove("selected");
+            document.getElementById("none-button").classList.remove("selected");
+
+            if (selectedMilk === "condensed") {
+                document.getElementById("condensed-button").classList.add("selected");
+            } else if (selectedMilk === "evaporated") {
+                document.getElementById("evaporated-button").classList.add("selected");
+            } else {
+                document.getElementById("none-button").classList.add("selected");
+            }
+
+            document.getElementById("milk-question").textContent =
+                "Milk: " + milk;
+
+            document.getElementById("sugar-question").textContent =
+                "Sweetness";
+
+            document.getElementById("sugar-section").style.display = "block";
+
+            document.getElementById("temperature-section").style.display = "none";
+
+            updateNutrition();
+        }
+
+
+        function chooseSugar(selectedSugar) {
+
+            sugar = selectedSugar;
+
+            document.getElementById("normal-button").classList.remove("selected");
+            document.getElementById("siew-dai-button").classList.remove("selected");
+            document.getElementById("no-sugar-button").classList.remove("selected");
+
+            if (sugar === "normal") {
+                document.getElementById("normal-button").classList.add("selected");
+            } else if (sugar === "siew dai") {
+                document.getElementById("siew-dai-button").classList.add("selected");
+            } else {
+                document.getElementById("no-sugar-button").classList.add("selected");
+            }
+
+            document.getElementById("sugar-question").textContent =
+                "Sweetness: " + sugar;
+
+            document.getElementById("temperature-question").textContent =
+                "Temperature";
+
+            document.getElementById("temperature-section").style.display = "block";
+
+            updateNutrition();
+        }
+
+
+        function chooseTemperature(selectedTemperature) {
+
+            temperature = selectedTemperature;
+
+            document.getElementById("hot-button").classList.remove("selected");
+            document.getElementById("peng-button").classList.remove("selected");
+
+            if (temperature === "hot") {
+                document.getElementById("hot-button").classList.add("selected");
+            } else {
+                document.getElementById("peng-button").classList.add("selected");
+            }
+
+            generateOrder();
+        }
+
+
+        function generateOrder() {
+
+            const order = getOrderName();
+
+            document.getElementById("result").innerHTML = `
+                <div style="font-size: 18px; color: #b23a2b; letter-spacing: 2px;">
+                    🇸🇬 KOPITIAM
+                </div>
+
+                <div style="font-size: 14px; margin: 15px 0 8px; color: #777;">
+                    YOUR ORDER
+                </div>
+
+                <div style="font-size: 28px; margin-bottom: 18px;">
+                    ${order}
+                </div>
+
+                <div style="font-size: 14px; color: #555; font-weight: normal;">
+                    ─────────────────
+                </div>
+            `;
+
+            const result = document.getElementById("result");
+
+            result.style.display = "block";
+
+            result.classList.remove("show-receipt");
+
+            void result.offsetWidth;
+
+            result.classList.add("show-receipt");
+
+            updateNutrition();
+        }
+
+
+        function resetOrder() {
+
+            drink = "";
+            milk = "";
+            sugar = "normal";
+            temperature = "hot";
+
+            document.getElementById("coffee-button").classList.remove("selected");
+            document.getElementById("tea-button").classList.remove("selected");
+
+            document.getElementById("condensed-button").classList.remove("selected");
+            document.getElementById("evaporated-button").classList.remove("selected");
+            document.getElementById("none-button").classList.remove("selected");
+
+            document.getElementById("normal-button").classList.remove("selected");
+            document.getElementById("siew-dai-button").classList.remove("selected");
+            document.getElementById("no-sugar-button").classList.remove("selected");
+
+            document.getElementById("hot-button").classList.remove("selected");
+            document.getElementById("peng-button").classList.remove("selected");
+
+            document.getElementById("milk-section").style.display = "none";
+            document.getElementById("sugar-section").style.display = "none";
+            document.getElementById("temperature-section").style.display = "none";
+
+            document.getElementById("result").style.display = "none";
+
+            document.getElementById("nutrition-result").innerHTML = "";
+        }
+
+
+        function orderRecommendation() {
+
+            drink = recommendation.drinkType;
+            milk = recommendation.milk;
+            sugar = recommendation.sugar;
+            temperature = recommendation.temperature;
+
+            document.getElementById("milk-section").style.display = "block";
+            document.getElementById("sugar-section").style.display = "block";
+            document.getElementById("temperature-section").style.display = "block";
+
+            document.getElementById("coffee-button").classList.remove("selected");
+            document.getElementById("tea-button").classList.remove("selected");
+
+            if (drink === "Kopi") {
+                document.getElementById("coffee-button").classList.add("selected");
+            } else {
+                document.getElementById("tea-button").classList.add("selected");
+            }
+
+            document.getElementById("condensed-button").classList.remove("selected");
+            document.getElementById("evaporated-button").classList.remove("selected");
+            document.getElementById("none-button").classList.remove("selected");
+
+            if (milk === "condensed") {
+                document.getElementById("condensed-button").classList.add("selected");
+            } else if (milk === "evaporated") {
+                document.getElementById("evaporated-button").classList.add("selected");
+            } else {
+                document.getElementById("none-button").classList.add("selected");
+            }
+
+            document.getElementById("normal-button").classList.remove("selected");
+            document.getElementById("siew-dai-button").classList.remove("selected");
+            document.getElementById("no-sugar-button").classList.remove("selected");
+
+            if (sugar === "normal") {
+                document.getElementById("normal-button").classList.add("selected");
+            } else if (sugar === "siew dai") {
+                document.getElementById("siew-dai-button").classList.add("selected");
+            } else {
+                document.getElementById("no-sugar-button").classList.add("selected");
+            }
+
+            document.getElementById("hot-button").classList.remove("selected");
+            document.getElementById("peng-button").classList.remove("selected");
+
+            if (temperature === "hot") {
+                document.getElementById("hot-button").classList.add("selected");
+            } else {
+                document.getElementById("peng-button").classList.add("selected");
+            }
+
+            document.getElementById("milk-question").textContent =
+                "Milk: " + milk;
+
+            document.getElementById("sugar-question").textContent =
+                "Sweetness: " + sugar;
+
+            document.getElementById("temperature-question").textContent =
+                "Temperature: " + temperature;
+
+            updateNutrition();
+
+            generateOrder();
+
+            document.getElementById("result").scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
+
+
+        function getWeatherIcon(code) {
+
+            if (code === 0) return "☀️";
+            if (code === 1) return "🌤️";
+            if (code === 2) return "⛅";
+            if (code === 3) return "☁️";
+            if (code === 45 || code === 48) return "🌫️";
+            if (code >= 51 && code <= 57) return "🌦️";
+            if (code >= 61 && code <= 67) return "🌧️";
+            if (code >= 71 && code <= 77) return "❄️";
+            if (code >= 80 && code <= 82) return "🌦️";
+            if (code >= 85 && code <= 86) return "🌨️";
+            if (code >= 95) return "⛈️";
+
+            return "🌡️";
+        }
+
+
+        function getRecommendation(code, temperature) {
+
+            if (code >= 95) {
+
+                return {
+                    drink: "Kopi O Kosong",
+                    reason: "Stormy weather calls for a classic hot kopi.",
+                    food: "Kaya toast",
+                    drinkType: "Kopi",
+                    milk: "none",
+                    sugar: "kosong",
+                    temperature: "hot"
+                };
+            }
+
+
+            if (code >= 61 && code <= 82) {
+
+                return {
+                    drink: "Teh C",
+                    reason: "A rainy Singapore day deserves a comforting cup of Teh C.",
+                    food: "Curry puff",
+                    drinkType: "Teh",
+                    milk: "evaporated",
+                    sugar: "normal",
+                    temperature: "hot"
+                };
+            }
+
+
+            if (temperature >= 30) {
+
+                return {
+                    drink: "Kopi O Kosong Peng",
+                    reason: "It's hot out — keep it refreshing and low on sugar.",
+                    food: "Kaya toast",
+                    drinkType: "Kopi",
+                    milk: "none",
+                    sugar: "kosong",
+                    temperature: "peng"
+                };
+            }
+
+
+            if (code === 0 || code === 1) {
+
+                return {
+                    drink: "Teh C Peng",
+                    reason: "Clear skies call for a refreshing Singapore kopi break.",
+                    food: "Kaya toast",
+                    drinkType: "Teh",
+                    milk: "evaporated",
+                    sugar: "normal",
+                    temperature: "peng"
+                };
+            }
+
+
+            return {
+                drink: "Kopi C",
+                reason: "A balanced choice for a cloudy Singapore day.",
+                food: "Curry puff",
+                drinkType: "Kopi",
+                milk: "evaporated",
+                sugar: "normal",
+                temperature: "hot"
+            };
+        }
+
+
+        fetch("https://api.open-meteo.com/v1/forecast?latitude=1.3521&longitude=103.8198&current=temperature_2m,apparent_temperature,weather_code&timezone=Asia/Singapore")
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                const temperature = data.current.temperature_2m;
+                const feelsLike = data.current.apparent_temperature;
+                const weatherCode = data.current.weather_code;
+
+                const weatherIcon = getWeatherIcon(weatherCode);
+
+                recommendation = getRecommendation(
+                    weatherCode,
+                    temperature
+                );
+
+
+                document.getElementById("weather").innerHTML = `
+
+                    <div style="
+                        font-size: 42px;
+                        margin-bottom: 8px;
+                    ">
+                        ${weatherIcon}
+                    </div>
+
+                    <div style="
+                        font-size: 28px;
+                        margin-bottom: 8px;
+                    ">
+                        ${temperature}°C
+                    </div>
+
+                    <div style="
+                        font-size: 15px;
+                        font-weight: normal;
+                        color: #777;
+                    ">
+                        Feels like ${feelsLike}°C
+                    </div>
+
+                `;
+
+
+                document.getElementById("recommendation").innerHTML = `
+
+                    <div class="recommendation-title">
+                        TODAY'S KOPITIAM PICK
+                    </div>
+
+                    <div class="drink">
+                        ☕ ${recommendation.drink}
+                    </div>
+
+                    <div class="reason">
+                        ${recommendation.reason}
+                    </div>
+
+                    <div class="food">
+                        🍽️ Pair it with: ${recommendation.food}
+                    </div>
+
+                    <button
+                        onclick="orderRecommendation()"
+                        style="
+                            margin-top: 15px;
+                            background: #b23a2b;
+                            color: white;
+                            border-color: #b23a2b;
+                        "
+                    >
+                        ☕ Order this
+                    </button>
+
+                `;
+            });
+
+    </script>
+
 </body>
 
 </html>
