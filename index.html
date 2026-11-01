@@ -326,6 +326,7 @@ button {
 let drink = "";
 let milk = "";
 let sugar = false;
+let recommendation = {};
 const nutrition = {
     "Kopi": { calories: 120, carbs: 18, protein: 2, fat: 3 },
     "Kopi kosong": { calories: 50, carbs: 7, protein: 2, fat: 1 },
@@ -480,25 +481,58 @@ document.getElementById("nutrition-result").innerHTML = `
    <p>🥑 ${info.fat}g fat</p>
 `;
 }
-function resetOrder() {
-    drink = "";
-    milk = "";
-    sugar = false;
+function orderRecommendation() {
 
-    document.getElementById("result").textContent = "";
-document.getElementById("result").style.display = "none";
-    document.getElementById("nutrition-result").innerHTML = "";
+    drink = recommendation.drinkType;
+    milk = recommendation.milk;
+    sugar = recommendation.sugar;
 
-    document.getElementById("milk-section").style.display = "none";
-    document.getElementById("sugar-section").style.display = "none";
+    document.getElementById("milk-section").style.display = "block";
+    document.getElementById("sugar-section").style.display = "block";
 
     document.getElementById("coffee-button").classList.remove("selected");
     document.getElementById("tea-button").classList.remove("selected");
+
+    if (drink === "Kopi") {
+        document.getElementById("coffee-button").classList.add("selected");
+    } else {
+        document.getElementById("tea-button").classList.add("selected");
+    }
+
     document.getElementById("condensed-button").classList.remove("selected");
     document.getElementById("evaporated-button").classList.remove("selected");
     document.getElementById("none-button").classList.remove("selected");
+
+    if (milk === "condensed") {
+        document.getElementById("condensed-button").classList.add("selected");
+    } else if (milk === "evaporated") {
+        document.getElementById("evaporated-button").classList.add("selected");
+    } else {
+        document.getElementById("none-button").classList.add("selected");
+    }
+
     document.getElementById("sugar-button").classList.remove("selected");
     document.getElementById("no-sugar-button").classList.remove("selected");
+
+    if (sugar === true) {
+        document.getElementById("sugar-button").classList.add("selected");
+    } else {
+        document.getElementById("no-sugar-button").classList.add("selected");
+    }
+
+    document.getElementById("milk-question").textContent =
+        "Milk: " + milk;
+
+    document.getElementById("sugar-question").textContent =
+        "How sweet?";
+
+    updateNutrition();
+    generateOrder();
+
+    document.getElementById("result").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
 }
     function getWeatherIcon(code) {
     if (code === 0) return "☀️";
@@ -515,13 +549,16 @@ document.getElementById("result").style.display = "none";
 
     return "🌡️";
 }
-    function getRecommendation(code, temperature) {
+function getRecommendation(code, temperature) {
 
     if (code >= 95) {
         return {
             drink: "Kopi O Kosong",
             reason: "Stormy weather calls for a classic hot kopi.",
-            food: "🍞 Kaya toast"
+            food: "Kaya toast",
+            drinkType: "Kopi",
+            milk: "none",
+            sugar: false
         };
     }
 
@@ -529,15 +566,21 @@ document.getElementById("result").style.display = "none";
         return {
             drink: "Teh C",
             reason: "A rainy Singapore day deserves a comforting cup of Teh C.",
-            food: "🥟 Curry puff"
+            food: "Curry puff",
+            drinkType: "Teh",
+            milk: "evaporated",
+            sugar: true
         };
     }
 
     if (temperature >= 30) {
         return {
-            drink: "Iced Kopi O Kosong",
+            drink: "Kopi O Kosong",
             reason: "It's hot out — keep it refreshing and low on sugar.",
-            food: "🍞 Kaya toast"
+            food: "Kaya toast",
+            drinkType: "Kopi",
+            milk: "none",
+            sugar: false
         };
     }
 
@@ -545,14 +588,20 @@ document.getElementById("result").style.display = "none";
         return {
             drink: "Teh C",
             reason: "Clear skies call for a classic Singapore kopi break.",
-            food: "🥪 Kaya toast"
+            food: "Kaya toast",
+            drinkType: "Teh",
+            milk: "evaporated",
+            sugar: true
         };
     }
 
     return {
         drink: "Kopi C",
         reason: "A balanced choice for a cloudy Singapore day.",
-        food: "🥟 Curry puff"
+        food: "Curry puff",
+        drinkType: "Kopi",
+        milk: "evaporated",
+        sugar: true
     };
 }
     fetch("https://api.open-meteo.com/v1/forecast?latitude=1.3521&longitude=103.8198&current=temperature_2m,apparent_temperature,weather_code&timezone=Asia/Singapore")
@@ -562,7 +611,7 @@ const temperature = data.current.temperature_2m;
 const feelsLike = data.current.apparent_temperature;
 const weatherCode = data.current.weather_code;
 const weatherIcon = getWeatherIcon(weatherCode);
-const recommendation = getRecommendation(weatherCode, temperature);
+recommendation = getRecommendation(weatherCode, temperature);
 document.getElementById("weather").innerHTML = `
     <div style="font-size: 42px; margin-bottom: 8px;">
         ${weatherIcon}
@@ -576,7 +625,7 @@ document.getElementById("weather").innerHTML = `
         Feels like ${feelsLike}°C
     </div>
 `;
-        document.getElementById("recommendation").innerHTML = `
+document.getElementById("recommendation").innerHTML = `
     <div class="recommendation-title">
         TODAY'S KOPITIAM PICK
     </div>
@@ -592,6 +641,15 @@ document.getElementById("weather").innerHTML = `
     <div class="food">
         🍽️ Pair it with: ${recommendation.food}
     </div>
+
+    <button onclick="orderRecommendation()" style="
+        margin-top: 15px;
+        background: #b23a2b;
+        color: white;
+        border-color: #b23a2b;
+    ">
+        ☕ Order this
+    </button>
 `;
     });
 </script>
