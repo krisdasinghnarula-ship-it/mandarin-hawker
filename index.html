@@ -76,6 +76,17 @@ h2 {
     border-top: 5px solid #b23a2b;
     position: relative;
 }
+        #weather {
+    background: #fffaf2;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 15px auto 25px;
+    max-width: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    color: #33251f;
+    font-size: 18px;
+    font-weight: bold;
+}
 #result.show-receipt {
     animation: receiptAppear 0.45s ease-out;
 }
@@ -381,8 +392,14 @@ document.getElementById("result").style.display = "none";
         const temperature = data.current.temperature_2m;
         const feelsLike = data.current.apparent_temperature;
 
-        document.getElementById("weather").textContent =
-            `🌡️ ${temperature}°C · Feels like ${feelsLike}°C`;
+document.getElementById("weather").innerHTML = `
+    <div style="font-size: 28px; margin-bottom: 8px;">
+        🌡️ ${temperature}°C
+    </div>
+    <div style="font-size: 15px; font-weight: normal; color: #777;">
+        Feels like ${feelsLike}°C
+    </div>
+`;
     });
 </script>
 </body>
