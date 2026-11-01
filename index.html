@@ -174,6 +174,9 @@ h2 {
     Nutrition values are approximate and may vary by stall.
 </p>
     <button id="reset-button" onclick="resetOrder()">Start Over</button>
+    <h2>🇸🇬 Singapore Weather</h2>
+
+<p id="weather">Loading Singapore weather...</p>
     <h2>📍 Find a Hawker Centre</h2>
 
 <p>Looking for somewhere to order your Kopi or Teh?</p>
@@ -372,6 +375,15 @@ document.getElementById("result").style.display = "none";
     document.getElementById("sugar-button").classList.remove("selected");
     document.getElementById("no-sugar-button").classList.remove("selected");
 }
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=1.3521&longitude=103.8198&current=temperature_2m,apparent_temperature,weather_code&timezone=Asia/Singapore")
+    .then(response => response.json())
+    .then(data => {
+        const temperature = data.current.temperature_2m;
+        const feelsLike = data.current.apparent_temperature;
+
+        document.getElementById("weather").textContent =
+            `🌡️ ${temperature}°C · Feels like ${feelsLike}°C`;
+    });
 </script>
 </body>
 
