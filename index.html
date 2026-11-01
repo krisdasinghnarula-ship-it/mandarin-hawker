@@ -64,15 +64,17 @@ h2 {
 }
 #result {
     display: none;
-    background: white;
-    border-radius: 20px;
-    padding: 25px 20px;
+    background: #fffdf7;
+    border-radius: 4px;
+    padding: 28px 20px;
     margin: 25px auto 15px;
-    max-width: 400px;
+    max-width: 360px;
     font-size: 26px;
     font-weight: bold;
+    color: #33251f;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
     border-top: 5px solid #b23a2b;
+    position: relative;
 }
 
 #nutrition-result {
@@ -144,8 +146,13 @@ h2 {
 
 <p id="sugar-question"></p>
 
-<button id="sugar-button" onclick="chooseSugar(true)">Yes, sugar</button>
-<button id="no-sugar-button" onclick="chooseSugar(false)">No sugar</button>
+<button id="sugar-button" onclick="chooseSugar(true)">
+    🍬 Regular
+</button>
+
+<button id="no-sugar-button" onclick="chooseSugar(false)">
+    🚫 Kosong
+</button>
 
 </div>
     <div id="nutrition-result"></div>
@@ -255,7 +262,7 @@ if (selectedMilk === "condensed") {
         "Milk: " + milk;
 
 document.getElementById("sugar-question").textContent =
-    "Do you want sugar?";
+    "How sweet?";
 
 document.getElementById("sugar-section").style.display = "block";
     
@@ -295,8 +302,23 @@ updateNutrition();
 
 const info = nutrition[order];
 
-document.getElementById("result").textContent =
-    "🇸🇬 Your order: " + order;
+document.getElementById("result").innerHTML = `
+    <div style="font-size: 18px; color: #b23a2b; letter-spacing: 2px;">
+        🇸🇬 KOPITIAM
+    </div>
+
+    <div style="font-size: 14px; margin: 15px 0 8px; color: #777;">
+        YOUR ORDER
+    </div>
+
+    <div style="font-size: 28px; margin-bottom: 18px;">
+        ${order}
+    </div>
+
+    <div style="font-size: 14px; color: #555; font-weight: normal;">
+        ─────────────────
+    </div>
+`;
 
 document.getElementById("result").style.display = "block";
 
