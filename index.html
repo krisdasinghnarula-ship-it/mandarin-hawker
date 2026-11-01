@@ -386,16 +386,38 @@ document.getElementById("result").style.display = "none";
     document.getElementById("sugar-button").classList.remove("selected");
     document.getElementById("no-sugar-button").classList.remove("selected");
 }
+    function getWeatherIcon(code) {
+    if (code === 0) return "☀️";
+    if (code === 1) return "🌤️";
+    if (code === 2) return "⛅";
+    if (code === 3) return "☁️";
+    if (code === 45 || code === 48) return "🌫️";
+    if (code >= 51 && code <= 57) return "🌦️";
+    if (code >= 61 && code <= 67) return "🌧️";
+    if (code >= 71 && code <= 77) return "❄️";
+    if (code >= 80 && code <= 82) return "🌦️";
+    if (code >= 85 && code <= 86) return "🌨️";
+    if (code >= 95) return "⛈️";
+
+    return "🌡️";
+}
     fetch("https://api.open-meteo.com/v1/forecast?latitude=1.3521&longitude=103.8198&current=temperature_2m,apparent_temperature,weather_code&timezone=Asia/Singapore")
     .then(response => response.json())
     .then(data => {
-        const temperature = data.current.temperature_2m;
-        const feelsLike = data.current.apparent_temperature;
+const temperature = data.current.temperature_2m;
+const feelsLike = data.current.apparent_temperature;
+const weatherCode = data.current.weather_code;
+const weatherIcon = getWeatherIcon(weatherCode);
 
 document.getElementById("weather").innerHTML = `
-    <div style="font-size: 28px; margin-bottom: 8px;">
-        🌡️ ${temperature}°C
+    <div style="font-size: 42px; margin-bottom: 8px;">
+        ${weatherIcon}
     </div>
+
+    <div style="font-size: 28px; margin-bottom: 8px;">
+        ${temperature}°C
+    </div>
+
     <div style="font-size: 15px; font-weight: normal; color: #777;">
         Feels like ${feelsLike}°C
     </div>
