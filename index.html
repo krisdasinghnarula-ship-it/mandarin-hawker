@@ -87,6 +87,41 @@ h2 {
     font-size: 18px;
     font-weight: bold;
 }
+        #recommendation {
+    background: #fffdf7;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 15px auto 25px;
+    max-width: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+#recommendation .recommendation-title {
+    color: #b23a2b;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+#recommendation .drink {
+    font-size: 22px;
+    font-weight: bold;
+    color: #33251f;
+    margin-bottom: 8px;
+}
+
+#recommendation .reason {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 18px;
+}
+
+#recommendation .food {
+    font-size: 16px;
+    color: #6b4f3a;
+    font-weight: bold;
+}
 #result.show-receipt {
     animation: receiptAppear 0.45s ease-out;
 }
@@ -187,8 +222,13 @@ h2 {
     <button id="reset-button" onclick="resetOrder()">Start Over</button>
     <h2>🇸🇬 Singapore Weather</h2>
 
-<p id="weather">Loading Singapore weather...</p>
-    <h2>📍 Find a Hawker Centre</h2>
+<h2>🇸🇬 Singapore Weather</h2>
+
+<div id="weather">
+    Loading Singapore weather...
+</div>
+
+<div id="recommendation"></div>
 
 <p>Looking for somewhere to order your Kopi or Teh?</p>
 
@@ -401,6 +441,46 @@ document.getElementById("result").style.display = "none";
 
     return "🌡️";
 }
+    function getRecommendation(code, temperature) {
+
+    if (code >= 95) {
+        return {
+            drink: "Kopi O Kosong",
+            reason: "Stormy weather calls for a classic hot kopi.",
+            food: "🍞 Kaya toast"
+        };
+    }
+
+    if (code >= 61 && code <= 82) {
+        return {
+            drink: "Teh C",
+            reason: "A rainy Singapore day deserves a comforting cup of Teh C.",
+            food: "🥟 Curry puff"
+        };
+    }
+
+    if (temperature >= 30) {
+        return {
+            drink: "Iced Kopi O Kosong",
+            reason: "It's hot out — keep it refreshing and low on sugar.",
+            food: "🍞 Kaya toast"
+        };
+    }
+
+    if (code === 0 || code === 1) {
+        return {
+            drink: "Teh C",
+            reason: "Clear skies call for a classic Singapore kopi break.",
+            food: "🥪 Kaya toast"
+        };
+    }
+
+    return {
+        drink: "Kopi C",
+        reason: "A balanced choice for a cloudy Singapore day.",
+        food: "🥟 Curry puff"
+    };
+}
     fetch("https://api.open-meteo.com/v1/forecast?latitude=1.3521&longitude=103.8198&current=temperature_2m,apparent_temperature,weather_code&timezone=Asia/Singapore")
     .then(response => response.json())
     .then(data => {
@@ -408,7 +488,7 @@ const temperature = data.current.temperature_2m;
 const feelsLike = data.current.apparent_temperature;
 const weatherCode = data.current.weather_code;
 const weatherIcon = getWeatherIcon(weatherCode);
-
+const recommendation = getRecommendation(weatherCode, temperature);
 document.getElementById("weather").innerHTML = `
     <div style="font-size: 42px; margin-bottom: 8px;">
         ${weatherIcon}
@@ -420,6 +500,23 @@ document.getElementById("weather").innerHTML = `
 
     <div style="font-size: 15px; font-weight: normal; color: #777;">
         Feels like ${feelsLike}°C
+    </div>
+`;
+        document.getElementById("recommendation").innerHTML = `
+    <div class="recommendation-title">
+        TODAY'S KOPITIAM PICK
+    </div>
+
+    <div class="drink">
+        ☕ ${recommendation.drink}
+    </div>
+
+    <div class="reason">
+        ${recommendation.reason}
+    </div>
+
+    <div class="food">
+        🍽️ Pair it with: ${recommendation.food}
     </div>
 `;
     });
