@@ -76,7 +76,21 @@ h2 {
     border-top: 5px solid #b23a2b;
     position: relative;
 }
+#result.show-receipt {
+    animation: receiptAppear 0.45s ease-out;
+}
 
+@keyframes receiptAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 #nutrition-result {
     background: #fffaf2;
     border-radius: 20px;
@@ -320,7 +334,15 @@ document.getElementById("result").innerHTML = `
     </div>
 `;
 
-document.getElementById("result").style.display = "block";
+const result = document.getElementById("result");
+
+result.style.display = "block";
+
+result.classList.remove("show-receipt");
+
+void result.offsetWidth;
+
+result.classList.add("show-receipt");
 
 document.getElementById("nutrition-result").innerHTML = `
     <p>Estimated nutrition</p>
